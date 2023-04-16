@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author tomas
  */
-public class Vehiculos {
+public class Vehiculos/* implements Comparable<Vehiculos>*/{
 
     private int tipoVehiculo;
     private String matricula;
@@ -66,6 +66,12 @@ public class Vehiculos {
         // return "Vehiculos{" + "tipoVehiculo=" + tipoVehiculo + ", matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo + ", color=" + color + '}';
         return " " + tipoVehiculo + " - " + matricula + ":" + marca + ":" + modelo + ":" + color + ":";
     }
-
+/*
+    // Implemento 
+    @Override
+    public int compareTo(Vehiculos o) {
+        return this.marca.compareToIgnoreCase(o.marca);
+    }
+*/
 
 }

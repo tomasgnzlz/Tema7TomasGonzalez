@@ -6,6 +6,8 @@ package vehiculos;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -16,6 +18,7 @@ public class PruebaVehiculos {
 
     public static void main(String[] args) {
 
+        // A)
         // Crea una lista de vehiculos y guardalos en una lista de tipo vehiculos. 
         List<Vehiculos> listaVehiculos = new ArrayList<>();
         // Crea una lista de vehiculos. 
@@ -23,9 +26,22 @@ public class PruebaVehiculos {
         for (Vehiculos listaVehiculo : listaVehiculos) {
             System.out.println(listaVehiculo);
         }
+
+        // A partir de la lista de vehiculos, creo un fichero vehiculos.txt donde guardate la lista de vehiculos entera. 
+        ServiciosFicheros.crearArchivoDeVehiculos("vehiculos.txt", listaVehiculos);
+
+        // B)
+        // Creo una nueva lista pero está ordenada por marca.
+        System.out.println("\n --------------- LISTA ORDENADA --------------- \n");
+        List<Vehiculos> listaVehiculosOrdenada = new ArrayList<>();
+        listaVehiculos(listaVehiculosOrdenada);
+        Comparator<Vehiculos> porMarca = (r1,r2) -> r1.getMarca().compareToIgnoreCase(r2.getMarca());
+        Collections.sort(listaVehiculosOrdenada, porMarca);
+        for (Vehiculos listaVehiculo : listaVehiculosOrdenada) {
+            System.out.println(listaVehiculo);
+        }
         
-       // A partir de la lista de vehiculos, creo un fichero vehiculos.txt donde guardate la lista de vehiculos entera. 
-       ServiciosFicheros.crearArchivoDeVehiculos("vehiculos.txt", listaVehiculos); 
+        ServiciosFicheros.crearArchivoDeVehiculos("vehiculosOrdenado.txt", listaVehiculos);
         
         
     }
@@ -69,4 +85,5 @@ public class PruebaVehiculos {
 
         return listavehiculos;
     }
+    
 }
