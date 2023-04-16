@@ -22,55 +22,48 @@ public class Main {
         List<Robot> lista = getListaRobots(20);
         System.out.println("Imprimo todos los robots creados \n");
         lista.forEach(System.out::println);
-        
-        //Ordenar
-        Collections.sort(lista, (r1,r2)-> Integer.compare(r1.vida(), r2.vida()));
-        System.out.println("\n Ordenados por porcentaje de vida de menor a mayor \n");
-        lista.forEach(System.out::println);
-        //
-        Comparator<Robot> menorMayor = (r1,r2) -> Integer.compare(r1.vida(), r2.vida());
-        Collections.sort(lista,menorMayor.reversed());
-        System.out.println("\n Ordenados por porcentaje de vida de mayor a menor \n");
-        lista.forEach(System.out::println);
-        //
-        System.out.println("\n Robots con más del 50% de vida\n");
-        // Con ForEach normal. 
-        System.out.println("        FORMA 1 ");
-        for (Robot r : lista) {
-            if (r.vida() >=50) {
-                System.out.println(r);
-            }
-        }
-        // Hacer lo mismo pero de manera diferente(STREAM)
-        System.out.println("\n        FORMA 2 ");
-        lista.stream()
-                .filter(r-> r.vida()>=50)       // le digo el predicate
-                .forEach(System.out::println); // Se van mostrando aquellos que cumplan el predicado
-        
-        // --
-        System.out.println("\n 3 Robots que tengan el mayor % de vida");
-        lista.stream()
-                .limit(3)
-                    .forEach(r->System.out.println(r.numSerie()));
-        // LOS STREAM CON SANGRÍA.
-        System.out.println("\n Usando API Stream Robots con más de un 50% de vida \n");
-        Stream<Robot> streamRobot = lista.stream();
-        Stream<Robot> streamRobtosFiltrados = streamRobot.filter(r->r.vida()>=50);
-        streamRobtosFiltrados.forEach(System.out::println);
-                
-                
-        lista.stream()
-                .filter(r-> r.vida()>=50);
-        
+//        
+//        //Ordenar
+//        Collections.sort(lista, (r1,r2)-> Integer.compare(r1.vida(), r2.vida()));
+//        System.out.println("\n Ordenados por porcentaje de vida de menor a mayor \n");
+//        lista.forEach(System.out::println);
+//        //
+//        Comparator<Robot> menorMayor = (r1,r2) -> Integer.compare(r1.vida(), r2.vida());
+//        Collections.sort(lista,menorMayor.reversed());
+//        System.out.println("\n Ordenados por porcentaje de vida de mayor a menor \n");
+//        lista.forEach(System.out::println);
+//        //
+//        System.out.println("\n Robots con más del 50% de vida\n");
+//        // Con ForEach normal. 
+//        System.out.println("        FORMA 1 ");
+//        for (Robot r : lista) {
+//            if (r.vida() >=50) {
+//                System.out.println(r);
+//            }
+//        }
+//        // Hacer lo mismo pero de manera diferente(STREAM)
+//        System.out.println("\n        FORMA 2 ");
+//        lista.stream()
+//                .filter(r-> r.vida()>=50)       // le digo el predicate
+//                .forEach(System.out::println); // Se van mostrando aquellos que cumplan el predicado
+//        
+//        // --
+//        System.out.println("\n 3 Robots que tengan el mayor % de vida");
+//        lista.stream()
+//                .limit(3)
+//                    .forEach(r->System.out.println(r.numSerie()));
+//        // LOS STREAM CON SANGRÍA.
+//        System.out.println("\n Usando API Stream Robots con más de un 50% de vida \n");
+//        Stream<Robot> streamRobot = lista.stream();
+//        Stream<Robot> streamRobtosFiltrados = streamRobot.filter(r->r.vida()>=50);
+//        streamRobtosFiltrados.forEach(System.out::println);
+//                
+//                
+//        lista.stream()
+//                .filter(r-> r.vida()>=50);
+//        
     }
-
-    
-    
-    
-    
-    
-    
-    
+  
     
     
     
