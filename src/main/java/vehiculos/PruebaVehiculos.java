@@ -4,7 +4,6 @@
  */
 package vehiculos;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,15 +34,43 @@ public class PruebaVehiculos {
         System.out.println("\n --------------- LISTA ORDENADA --------------- \n");
         List<Vehiculos> listaVehiculosOrdenada = new ArrayList<>();
         listaVehiculos(listaVehiculosOrdenada);
-        Comparator<Vehiculos> porMarca = (r1,r2) -> r1.getMarca().compareToIgnoreCase(r2.getMarca());
+        Comparator<Vehiculos> porMarca = (r1, r2) -> r1.getMarca().compareToIgnoreCase(r2.getMarca());
         Collections.sort(listaVehiculosOrdenada, porMarca);
         for (Vehiculos listaVehiculo : listaVehiculosOrdenada) {
             System.out.println(listaVehiculo);
         }
-        
+
         ServiciosFicheros.crearArchivoDeVehiculos("vehiculosOrdenado.txt", listaVehiculos);
-        
-        
+
+        // C)
+        // Creo 3 nuevos ficheros, ordenando en cada uno de ellos los vehiculos del mismo tipo. 
+        List<Vehiculos> listaVehiculos_C = new ArrayList<>(listaVehiculos);
+
+        // Creo las listas en las que se meterán los datos del fichero cn respecto a cada tipo de vehiculo. 
+        List<Vehiculos> turismos = new ArrayList<>();
+        List<Vehiculos> deportivos = new ArrayList<>();
+        List<Vehiculos> furgonetas = new ArrayList<>();
+
+        // Con este bucle filtramos todos nuestros vehiculos segun el tipo al que pertenece cada uno de ellos. 
+        for (Vehiculos v : listaVehiculos_C) {
+            switch (v.getTipoVehiculo()) {
+                case 0:
+                    turismos.add(v);
+                    break;
+                case 1:
+                    deportivos.add(v);
+                    break;
+                case 2:
+                    furgonetas.add(v);
+                    break;
+            }
+        }
+
+        // Guardar cada lista en un archivo separado
+        ServiciosFicheros.crearArchivoDeVehiculos("vehiculosTurismos.txt", turismos);
+        ServiciosFicheros.crearArchivoDeVehiculos("vehiculosDeportivos.txt", deportivos);
+        ServiciosFicheros.crearArchivoDeVehiculos("vehiculosFurgonetas.txt", furgonetas);
+
     }
 
     public static List<Vehiculos> listaVehiculos(List<Vehiculos> listavehiculos) {
@@ -85,5 +112,5 @@ public class PruebaVehiculos {
 
         return listavehiculos;
     }
-    
+
 }

@@ -74,4 +74,12 @@ public class Vehiculos/* implements Comparable<Vehiculos>*/{
     }
 */
 
+    public int getTipoVehiculo() {
+        return tipoVehiculo;
+    }
+
+    public void setTipoVehiculo(int tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
+    }
+
 }
