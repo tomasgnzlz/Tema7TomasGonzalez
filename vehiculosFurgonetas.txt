@@ -1,0 +1,10 @@
+ 2 - abkz123:Kia:Ceed:Negro:
+ 2 - xycd789:Toyota:Corolla:Blanco:
+ 2 - poiu951:Renault:Clio:Rojo:
+ 2 - mnbv753:Ford:Fiesta:Azul:
+ 2 - lkjh246:Volkswagen:Golf:Gris:
+ 2 - fdas852:Audi:A3:Negro:
+ 2 - qwer369:Mercedes-Benz:Clase C:Blanco:
+ 2 - zxpo468:BMW:Serie 3:Gris:
+ 2 - hjkl147:Hyundai:i30:Rojo:
+ 2 - uejd147:Hyundai:i30:Rojo:
