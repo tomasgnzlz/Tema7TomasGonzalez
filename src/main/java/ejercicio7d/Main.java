@@ -13,6 +13,7 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,25 +26,27 @@ public class Main {
 
     public static void main(String[] args) {
         // A) Crear un directorio llamado 'copias'
-        //System.out.println("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\Tema7TomasGonzalez.git\\copias\\vehiculosDeportivos.txt");
-        String nombreDirectorio = "copias";
+
+        System.out.println("\n Creo un directorio llamado copias \n");
+        String nombreDirectorio = "./copias";
         crearDirectorios(nombreDirectorio);
 
+        System.out.println("\n Copio los archivos al directorio creado \n");
+        copiarFicheros(nombreDirectorio);
+
         // B) Mostrar el contenido de los archivos que hay en el directorio creado previamente. 
-        System.out.println("\n Muestro el contenido que hay de los ficheros \n");
-        listarDirectorio("./" + nombreDirectorio);
+        System.out.println("\n Muestro el contenido que hay del directorio creado previamente \n");
+        listarDirectorio(nombreDirectorio);
 
         // C) Creo una lista de vehiculos en la cual meto los vehiculos que leo desde el fichero. 
         // Crear una lista de vehículos para cada tipo de vehículo
-        List<Vehiculos> vehiculosDeportivos = leeFichero("copias/vehiculosDeportivos.txt");
-        List<Vehiculos> vehiculosFurgonetas = leeFichero("copias/vehiculosFurgonetas.txt");
-        List<Vehiculos> vehiculosTurismos = leeFichero("copias/vehiculosTurismos.txt");
-
+        List<Vehiculos> vehiculosDeportivos = new ArrayList<>();
+        List<Vehiculos> vehiculosFurgonetas = new ArrayList<>();
+        List<Vehiculos> vehiculosTurismos = new ArrayList<>();
     }
 
-    // Es igual que el método anterior pero crea los directorios intermedios
-    // necesarios especificados en la ruta
-    // Si el directorio a crear ya existe no hace nada
+    // Es igual que el método anterior pero crea los directorios intermedios// necesarios especificados en la ruta// Si el directorio a crear ya existe no hace nada
+    // Método para crear directorios.
     public static void crearDirectorios(String ruta) {
         Path directory = Paths.get(ruta);
         try {
@@ -52,10 +55,29 @@ public class Main {
         } catch (AccessDeniedException ade) {
             System.out.println("No tiene permisos para crear " + ruta);
         } catch (IOException e) {
-            System.out.println("Problema creando el directorio " + ruta);
+            System.out.println("Problema creando el directorio " + e.getMessage());
             System.out.println("Seguramente la ruta está mal escrita o no existe");
         }
 
+    }
+
+    // Copio unos ficheros donde el directorio que se ha creado previamente. 
+    public static void copiarFicheros(String rutaCopiar) {
+
+        String[] ficheros = {"vehiculosTurismos.txt", "vehiculosDeportivos.txt", "vehiculosFurgonetas.txt"}; // Array con los nombres de los ficheros a copiar
+
+        // Copiar los ficheros uno por uno
+        for (String fichero : ficheros) {
+            try {
+                File origen = new File(fichero); // Fichero de origen
+                File destino = new File(rutaCopiar + "/" + fichero); // Fichero de destino con la ruta completa
+
+                Files.copy(origen.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING); // Copiar el fichero con opción de reemplazo si ya existe
+                System.out.println("Se ha copiado el fichero " + fichero + " a " + rutaCopiar);
+            } catch (IOException e) {
+                System.err.println("Error al copiar el fichero " + fichero + ": " + e.getMessage());
+            }
+        }
     }
 
     //Veo el contenido que hay de los ficheros. 
@@ -67,7 +89,7 @@ public class Main {
             // devuelve en un array
             File[] ficheros = f.listFiles();
             for (File file2 : ficheros) {
-                System.out.println(file2.getName());
+                System.out.println("fichero -> " + file2.getName());
             }
         } else {
             System.out.println("El directorio a listar no existe");
@@ -94,8 +116,8 @@ public class Main {
 //        }
 //        return vehiculos;
 //    }
-    public static List<Vehiculos> leeFichero(String fichero) {
-        List<Vehiculos> vehiculos = new ArrayList<>();
+    //Método para leer el contenido de los ficheros y ademas los meta dentro de una lista
+    public static List<Vehiculos> leeFichero(String fichero, List<Vehiculos> vehiculos) {
 
         try {
             File archivo = new File("copias/" + fichero);
@@ -128,5 +150,17 @@ public class Main {
 
         return vehiculos;
     }
+    /*
+        1 - oiuo987:Kia:Ceed:Negro:
+        1 - abkz123:Kia:Ceed:Negro:
+        1 - qwert567:Seat:Ibiza:Rojo:
+        1 - yxcv987:Renault:Captur:Blanco:
+        1 - poiuyt321:Ford:Focus:Azul:
+        1 - mnbv456:Hyundai:Tucson:Gris:
+        1 - lkjhgf654:Volkswagen:Golf:Negro:
+        1 - zxcvbn789:Toyota:Corolla:Rojo:
+        1 - asdfgh210:Peugeot:308:Blanco:
+        1 - poiuyt753:Citroen:C3:Gris:
+    */
 
 }
