@@ -43,6 +43,14 @@ public class Main {
         List<Vehiculos> vehiculosDeportivos = new ArrayList<>();
         List<Vehiculos> vehiculosFurgonetas = new ArrayList<>();
         List<Vehiculos> vehiculosTurismos = new ArrayList<>();
+
+        leerFichero(nombreDirectorio + "/vehiculosDeportivos.txt", vehiculosDeportivos);
+        leerFichero(nombreDirectorio + "/vehiculosFurgonetas.txt", vehiculosFurgonetas);
+        leerFichero(nombreDirectorio + "/vehiculosTurismos.txt", vehiculosTurismos);
+        vehiculosDeportivos.forEach(System.out::println);
+        vehiculosFurgonetas.forEach(System.out::println);
+        vehiculosTurismos.forEach(System.out::println);
+
     }
 
     // Es igual que el método anterior pero crea los directorios intermedios// necesarios especificados en la ruta// Si el directorio a crear ya existe no hace nada
@@ -95,72 +103,26 @@ public class Main {
             System.out.println("El directorio a listar no existe");
         }
     }
-    // Este método lo que hace es leer los archivos que hay dentro del directorio y los mete en una lista de vehiculos
 
-//    public static List<Vehiculos> leeFichero(String nombreFichero) {
-//        List<Vehiculos> vehiculos = new ArrayList<>();
-//        try ( Scanner scanner = new Scanner(new File(nombreFichero))) {
-//            while (scanner.hasNextLine()) {
-//                String[] linea = scanner.nextLine().trim().split(":");
-//                int tipoVehiculo = Integer.parseInt(linea[0].trim());
-//                String matricula = linea[1].trim();
-//                String marca = linea[2].trim();
-//                String modelo = linea[3].trim();
-//                String color = linea[4].trim();
-//                vehiculos.add(new Vehiculos(tipoVehiculo, matricula, marca, modelo, color));
-//            }
-//        } catch (FileNotFoundException e) {
-//            System.err.println("No se ha encontrado el archivo " + nombreFichero);
-//        } catch (NumberFormatException e) {
-//            System.err.println("Error al parsear un número en el archivo " + nombreFichero);
-//        }
-//        return vehiculos;
-//    }
     //Método para leer el contenido de los ficheros y ademas los meta dentro de una lista
-    public static List<Vehiculos> leeFichero(String fichero, List<Vehiculos> vehiculos) {
+    public static List<Vehiculos> leerFichero(String rutaFichero, List<Vehiculos> vehiculos) {
 
         try {
-            File archivo = new File("copias/" + fichero);
-            Scanner sc = new Scanner(archivo);
-
-            while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
-
-                // Comprobamos que la línea tenga el formato correcto
-                if (linea.matches("\\d+ - [a-zA-Z0-9]+:[a-zA-Z]+:[a-zA-Z]+:[a-zA-Z]+")) {
-                    String[] partes = linea.split(":");
-                    String matricula = partes[0].split(" - ")[1];
-                    String marca = partes[1];
-                    String modelo = partes[2];
-                    String color = partes[3];
-
-                    // Convertimos el primer número en un entero
-                    int tipo = Integer.parseInt(partes[0].split(" - ")[0]);
-
-                    Vehiculos v = new Vehiculos(tipo, matricula, marca, modelo, color);
-                    vehiculos.add(v);
-                } else {
-                    System.out.println("Error de formato en la línea: " + linea);
-                }
+            File fichero = new File(rutaFichero);
+            Scanner scanner = new Scanner(fichero);
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] datos = linea.split(":");
+                String matricula = datos[0].trim();
+                String marca = datos[1].trim();
+                String modelo = datos[2].trim();
+                String color = datos[3].trim();
+                vehiculos.add(new Vehiculos(matricula, marca, modelo, color));
             }
-            sc.close();
+            scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No se ha encontrado el archivo " + fichero);
+            System.out.println("No se ha encontrado el archivo " + rutaFichero);
         }
-
         return vehiculos;
     }
-    /*
-        1 - oiuo987:Kia:Ceed:Negro:
-        1 - abkz123:Kia:Ceed:Negro:
-        1 - qwert567:Seat:Ibiza:Rojo:
-        1 - yxcv987:Renault:Captur:Blanco:
-        1 - poiuyt321:Ford:Focus:Azul:
-        1 - mnbv456:Hyundai:Tucson:Gris:
-        1 - lkjhgf654:Volkswagen:Golf:Negro:
-        1 - zxcvbn789:Toyota:Corolla:Rojo:
-        1 - asdfgh210:Peugeot:308:Blanco:
-        1 - poiuyt753:Citroen:C3:Gris:
-    */
-
 }
